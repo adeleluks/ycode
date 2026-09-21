@@ -58,7 +58,6 @@ export function useCollectionItemSearch(
 
   useEffect(() => {
     if (!collectionId || !trimmedSearch) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsSearching(false);
       return;
     }
