@@ -330,7 +330,15 @@ const LeftSidebarPages = React.forwardRef<LeftSidebarPagesHandle, LeftSidebarPag
       return;
     }
 
-    if (pageId === currentPageId) return;
+    // Creating a folder selects it in the tree without changing the page on
+    // the canvas. Clicking that current page (usually Homepage) must still
+    // move the tree selection off the folder.
+    if (pageId === currentPageId) {
+      if (selectedItemIdRef.current !== pageId) {
+        setSelectedItemId(pageId);
+      }
+      return;
+    }
 
     // Set to body directly so the layer sync effect won't trigger a second URL update
     const { setSelectedLayerId } = useEditorStore.getState();
