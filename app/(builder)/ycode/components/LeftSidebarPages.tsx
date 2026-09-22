@@ -829,7 +829,16 @@ const LeftSidebarPages = React.forwardRef<LeftSidebarPagesHandle, LeftSidebarPag
                         </DropdownMenuItem>
                       ))
                     ) : (
-                      <DropdownMenuItem key={null} onClick={() => navigateToCollections()}>
+                      <DropdownMenuItem
+                        onSelect={() => {
+                          // Match the header CMS button: the view follows the
+                          // sidebar tab, not the URL alone.
+                          const { setActiveSidebarTab, setLastDesignUrl } = useEditorStore.getState();
+                          setLastDesignUrl(window.location.pathname + window.location.search);
+                          setActiveSidebarTab('cms');
+                          navigateToCollections();
+                        }}
+                      >
                         <Icon name="database" className="size-3 opacity-60" />
                         Add a collection
                       </DropdownMenuItem>
