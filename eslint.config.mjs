@@ -86,15 +86,6 @@ const reactConfig = defineConfig([
     },
     rules: {
       ...reactHooksPlugin.configs.recommended.rules,
-      // Keep the opt-outs in sync with the .tsx rules below
-      'react-hooks/exhaustive-deps': 'warn',
-      'react-hooks/purity': 'off',
-      'react-hooks/set-state-in-effect': 'off',
-      'react-hooks/error-boundaries': 'off',
-      'react-hooks/incompatible-library': 'off',
-      'react-hooks/preserve-manual-memoization': 'off',
-      'react-hooks/immutability': 'off',
-      'react-hooks/refs': 'off',
     },
   },
 ]);
@@ -148,7 +139,14 @@ const customRulesConfig = defineConfig([
       'react/no-unknown-property': ['error', { ignore: ['jsx', 'global'] }],
       '@next/next/no-html-link-for-pages': 'warn',
       '@next/next/no-img-element': 'warn',
-      // App Router root layouts render <head> directly; next/head is Pages Router only
+    },
+  },
+  {
+    // The shared document shell renders <head> directly, as App Router requires;
+    // next/head is Pages Router only
+    name: 'project/root-layout-overrides',
+    files: ['components/RootLayoutShell.tsx'],
+    rules: {
       '@next/next/no-head-element': 'off',
     },
   },
